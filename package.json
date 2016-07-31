@@ -1,0 +1,23 @@
+{
+  "name": "tellstick-duo-nodejs",
+  "version": "1.0.0",
+  "description": "Home automtion to controll tellstick duo",
+  "main": "schedule_lights.js",
+  "dependencies": {
+    "telldus": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suburban81/tellstick-duo-nodejs.git"
+  },
+  "author": "Andreas Urban",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suburban81/tellstick-duo-nodejs/issues"
+  },
+  "homepage": "https://github.com/suburban81/tellstick-duo-nodejs#readme"
+}
