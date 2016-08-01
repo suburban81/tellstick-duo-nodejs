@@ -4,7 +4,10 @@
   "description": "Home automtion to controll tellstick duo",
   "main": "schedule_lights.js",
   "dependencies": {
-    "telldus": "^1.1.0"
+    "telldus": "^1.1.0",
+    "cron": "^1.1.0",
+    "suncalc": "^1.7.0",
+    "date-utils": "^1.2.21"
   },
   "devDependencies": {},
   "scripts": {
