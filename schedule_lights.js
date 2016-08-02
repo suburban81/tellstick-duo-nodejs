@@ -2,28 +2,35 @@ var telldus = require('telldus');
 var CronJob = require('cron').CronJob;
 var SunCalc = require('suncalc');
 require('date-utils');
+require('scribe-js')();
 
-console.log('--- Start new scheduling at ' + new Date() + "---");
+var console = process.console;
+
+console.time().info('--- Start new scheduling at ' + new Date() + "---");
 
 // get today's sunlight times for Karlskrona
 var times = SunCalc.getTimes(Date.today().add({ "hours" : 3 }), 56.1612, 15.5869);
-console.log('sunrise: ' + times.sunrise);
-console.log('sunset: ' + times.sunsetStart);
+console.time().info('sunrise: ' + times.sunrise);
+console.time().info('sunset: ' + times.sunsetStart);
 
 var minutesOffset = 0;
 
-//Vardagsrum norr
-scheduleAndExcecute(newDate(6, 0), sunriseOrMinimum(newDate(7, 30)), 1);
+// id = 1, name = "Vardagsrum lampa norr"
+scheduleAndExcecute(newDate(6, 15), sunriseOrMinimum(newDate(7, 30)), 1);
 scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 30), 1);
 
-//Ute söder
-scheduleAndExcecute(newDate(5, 0), sunriseOrMinimum(newDate(7, 30)), 2);
+//id = 2, name = "Utomhus lampa soder"
+scheduleAndExcecute(newDate(5, 30), sunriseOrMinimum(newDate(7, 30)), 2);
 scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 00), 2);
 
-console.log('Finished scheduling for lights');
+//id = 3, name = "Kok lampa norr"
+scheduleAndExcecute(newDate(6, 0), sunriseOrMinimum(newDate(7, 30)), 3);
+scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 00), 3);
+
+console.time().info('Finished scheduling for lights');
 
 function scheduleAndExcecute(startDate, endDate, id) {
-  console.log('About to schedule ' + id);
+  console.time().info('About to schedule ' + id);
 
   new CronJob(createCron(startDate), function() {
     turnOn(id);
@@ -34,7 +41,7 @@ function scheduleAndExcecute(startDate, endDate, id) {
   }, null, true, null);
 
   if(new Date().between(startDate, endDate)) {
-    console.log('Light should be on (raspberry where restarted??) ' + id);
+    console.time().info('Light should be on (raspberry where restarted??) ' + id);
     turnOn(id);
   }
 }
@@ -42,21 +49,21 @@ function scheduleAndExcecute(startDate, endDate, id) {
 function createCron(date) {
   var str =  date.getSeconds() + ' ' + date.add({"minutes" : minutesOffset}).getMinutes() + ' ' + date.getHours() + ' * * *';
   minutesOffset = minutesOffset + 1;
-  console.log('Cron: ' + str);
+  console.time().info('Cron: ' + str);
   return str;
 };
 
 function turnOn(id) {
-  console.log('Try to turn on ' + id);
+  console.time().info('Try to turn on ' + id);
   telldus.turnOn(id, function(err) {
-    console.log(id + ' is now on');
+    console.time().info(id + ' is now on');
   });
 }
 
 function turnOff(id) {
-  console.log('Try to turn off ' + id);
+  console.time().info('Try to turn off ' + id);
   telldus.turnOff(id, function(err) {
-    console.log(id + ' is now off');
+    console.time().info(id + ' is now off');
   });
 }
 
@@ -70,7 +77,7 @@ function sunsetOrMaximum(maxDate) {
 
 function newDate(hours, minutes) {
   var date = Date.today().add({ "hours": hours, "minutes": minutes });
-  //console.log(date);
+  //console.time().info(date);
   return date;
 }
 
