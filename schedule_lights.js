@@ -3,6 +3,7 @@ var CronJob = require('cron').CronJob;
 var SunCalc = require('suncalc');
 require('date-utils');
 require('scribe-js')();
+//require('weather');
 
 var console = process.console;
 
@@ -27,6 +28,26 @@ scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 00), 2);
 scheduleAndExcecute(newDate(6, 0), sunriseOrMinimum(newDate(7, 30)), 3);
 scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 00), 3);
 
+//id = 4, name = "Utomhus lampa norr"
+
+//id = 5, name = "Utomhus trad norr"
+
+//id = 6, name = "Kallare norr"
+scheduleAndExcecute(newDate(5, 30), sunriseOrMinimum(newDate(7, 30)), 6);
+scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 40), 6);
+
+//id = 7, name = "Kallare nord-ost"
+scheduleAndExcecute(newDate(5, 30), sunriseOrMinimum(newDate(7, 30)), 7);
+scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 45), 7);
+
+//id = 8, name = "Kallare tvattrum"
+scheduleAndExcecute(newDate(5, 30), sunriseOrMinimum(newDate(7, 30)), 8);
+scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 35), 8);
+
+//id = 10, name = "Appeltrad"
+scheduleAndExcecute(newDate(5, 0), sunriseOrMinimum(newDate(8, 30)), 10);
+scheduleAndExcecute(sunsetOrMaximum(newDate(18, 0)), newDate(1, 35), 10);
+
 console.time().info('Finished scheduling for lights');
 
 function scheduleAndExcecute(startDate, endDate, id) {
@@ -41,7 +62,7 @@ function scheduleAndExcecute(startDate, endDate, id) {
   }, null, true, null);
 
   if(new Date().between(startDate, endDate)) {
-    console.time().info('Light should be on (raspberry where restarted??) ' + id);
+    console.time().info('Turn on light while scheduling ' + id);
     turnOn(id);
   }
 }
