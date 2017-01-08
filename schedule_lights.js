@@ -17,7 +17,7 @@ console.time().info('sunset: ' + times.sunsetStart);
 var minutesOffset = 0;
 
 // id = 1, name = "Vardagsrum lampa norr"
-scheduleAndExcecute(newDate(6, 15), sunriseOrMinimum(newDate(7, 30)), 1);
+scheduleAndExcecute(newDate(5, 30), sunriseOrMinimum(newDate(7, 30)), 1);
 scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 30), 1);
 
 //id = 2, name = "Utomhus lampa soder"
@@ -25,7 +25,7 @@ scheduleAndExcecute(newDate(5, 30), sunriseOrMinimum(newDate(7, 30)), 2);
 scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 00), 2);
 
 //id = 3, name = "Kok lampa norr"
-scheduleAndExcecute(newDate(6, 0), sunriseOrMinimum(newDate(7, 30)), 3);
+scheduleAndExcecute(newDate(5, 45), sunriseOrMinimum(newDate(7, 30)), 3);
 scheduleAndExcecute(sunsetOrMaximum(newDate(20, 0)), newDate(23, 00), 3);
 
 //id = 4, name = "Utomhus lampa norr"
